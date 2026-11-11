@@ -107,15 +107,24 @@ const CounterBox = styled.div`
   };
 `;
 
+const CounterBtnBox = styled.div`
+  width: 76%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const CounterButton = styled.div`
-  width: 160px;
-  height: 160px;
-  margin-top: 10%;
+  width: 45%;
+  max-width: 120px;
+  height: 60%;
+  max-height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(99, 110, 114);
-  border: 3px solid rgb(85, 93, 96);
+  background-color: rgb(26, 188, 156);
   border-radius: 7px;
 `;
 
@@ -143,10 +152,13 @@ export default function App(){
   const [NowCategory, setNowCategory] = useState("D");
 
   const CountBtnClicked = (button_id: string) => {
-    if(button_id === "D"){
+    if(button_id === "D_up"){
       update_d_count(delivery_count + 1);
     } else if(button_id === "P"){
       update_p_count(pickup_count + 1);
+    } else if(button_id === "D_down"){
+      if(delivery_count === 0) return;
+      update_d_count(delivery_count - 1);
     } else {
       alert("button_id error");
     }
@@ -199,11 +211,19 @@ export default function App(){
                 <label>주문 횟수</label>
                 <span>{delivery_count}</span>
               </div>
-              <CounterButton onClick={() => CountBtnClicked("D")}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width={"80"} height={"80"}>
-                  <path fill="rgb(220, 221, 225)" d="M256 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 160-160 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l160 0 0 160c0 17.7 14.3 32 32 32s32-14.3 32-32l0-160 160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-160 0 0-160z"/>
-                </svg>
-              </CounterButton>
+              <CounterBtnBox>
+                <CounterButton onClick={() => CountBtnClicked("D_up")}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width={"60"} height={"60"}>
+                    <path fill="rgb(220, 221, 225)" d="M256 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 160-160 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l160 0 0 160c0 17.7 14.3 32 32 32s32-14.3 32-32l0-160 160 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-160 0 0-160z"/>
+                  </svg>
+                </CounterButton>
+                <CounterButton style={{backgroundColor: "rgb(231, 76, 60)"}} onClick={() => CountBtnClicked("D_down")}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width={"60"} height={"60"}>
+                    <path fill="rgb(220, 221, 225)" d="M0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32z"/>
+                  </svg>
+
+                </CounterButton>
+              </CounterBtnBox>
             </CounterBox>
           ) : null
         }
